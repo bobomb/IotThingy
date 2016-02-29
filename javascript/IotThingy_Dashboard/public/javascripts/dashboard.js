@@ -1,8 +1,16 @@
-var sensorData;
-$.getJSON("//data/sensor/2", function (data) {
-  sensorData = data;
+var rawSensorData
+var formattedSensorData = [];
+var sensorId = -1;
+$.getJSON("data/sensor/1", function (data) {
+  rawSensorData = data;
+  if(rawSensorData.length > 0)
+    sensorId = rawSensorData[0]['sensor_id']
+  
   $.each(data, function (index, entry) {
-    $(".derp").append('<br>' + entry['temperature']);
+    //$(".derp").append('<br>' + entry['temperature']);
+      var milliseconds = new Date(entry['timestamp']).getTime();
+      //highcarts requires dates in millisecond form
+      formattedSensorData.push([milliseconds, entry['temperature']]);
   });
 
 
@@ -11,7 +19,7 @@ $.getJSON("//data/sensor/2", function (data) {
       zoomType: 'x'
     },
     title: {
-      text: 'USD to EUR exchange rate over time'
+      text: 'Temperature of sensor ' + sensorId
     },
     subtitle: {
       text: document.ontouchstart === undefined ?
@@ -22,7 +30,7 @@ $.getJSON("//data/sensor/2", function (data) {
     },
     yAxis: {
       title: {
-        text: 'Exchange rate'
+        text: 'Temperarture (degrees F)'
       }
     },
     legend: {
@@ -57,8 +65,8 @@ $.getJSON("//data/sensor/2", function (data) {
 
     series: [{
       type: 'area',
-      name: 'USD to EUR',
-      data: data
+      name: 'Temperature',
+      data: formattedSensorData
     }]
   });
 });
