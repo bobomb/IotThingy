@@ -85,5 +85,5 @@ node_modules
 javascript/IotThingy_Dashboard/.vscode/settings.json
 
 #config folder
-javascript/IotThingy_Dashboard/config
+javascript/IotThingy_Dashboard/config/*
 *.ts
