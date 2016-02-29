@@ -84,6 +84,6 @@ node_modules
 .node_repl_history
 javascript/IotThingy_Dashboard/.vscode/settings.json
 
-#config file
-#javascript/IotThingy_Dashboard/config/dbconfig.js
+#config folder
+javascript/IotThingy_Dashboard/config
 *.ts
