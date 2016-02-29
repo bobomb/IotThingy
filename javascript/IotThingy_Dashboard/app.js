@@ -4,6 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongo = require('mongodb');
+var MongoClient = mongo.MongoClient;
+var mongodb;
+var assert = require('assert');
+var dbConfig = require('./config/dbconfig').development;
+const util = require('util');
 
 //route handlers
 var routes = require('./routes/index');
@@ -24,6 +30,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//connect to mongodb
+const connectURI = util.format('mongodb://%s:%s/%s', dbConfig.host, dbConfig.port, dbConfig.db);
+MongoClient.connect(connectURI, function(err, db) {
+  assert.equal(null, err); //verify we didn't get an error or fail
+  console.log("Connected correctly to server %s", connectURI);
+  mongodb = db;
+});
+
+//global route handler, adds mongodb object
+app.use(function(req, res, next){
+  req.db = mongodb;
+  next();
+});
 
 //setup route handlers
 //index route
