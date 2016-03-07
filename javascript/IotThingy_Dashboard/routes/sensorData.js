@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var assert = require('assert');
+var controller = require('/controllers/sensorDatas')
 
 router.get('/', function(req, res, next) {
   //TODO
@@ -37,4 +38,6 @@ router.get('/sensor/:id/:range', function(req, res, next) {
   res.send('you requested data for sensor id ' + id + ' and range ' + range);
 });
 
+
+//router.get('/test', 
 module.exports = router;

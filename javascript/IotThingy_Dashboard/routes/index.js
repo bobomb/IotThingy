@@ -12,8 +12,10 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 router.get('/dashboard/:id', function(req, res, next) {
-  
+  res.render('dashboard', {sensorData: sensorData})
 });
 
+//router.get('dashboard/:id/:range', function(req, res, next) {
+//  res.render('dashbard', {sensorData: sensorData, range:  0
+//});
 module.exports = router;
-router

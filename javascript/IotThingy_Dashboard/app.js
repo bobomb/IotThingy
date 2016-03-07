@@ -12,10 +12,10 @@ var dbConfig = require('./config/dbconfig').development;
 const util = require('util');
 
 //route handlers
-var routes = require('./routes/index');
+var indexRoutes = require('./routes/index');
 //includes the data file, which will later be mapped
 //to /data via the app.use
-var dataRoutes = require('./routes/data');
+var sensorDataRoutes = require('./routes/sensorData');
 //main app
 var app = express();
 
@@ -32,24 +32,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //connect to mongodb
-const connectURI = util.format('mongodb://%s:%s/%s', dbConfig.host, dbConfig.port, dbConfig.db);
-MongoClient.connect(connectURI, function(err, db) {
-  assert.equal(null, err); //verify we didn't get an error or fail
-  console.log("Connected correctly to server %s", connectURI);
-  mongodb = db;
-});
+// const connectURI = util.format('mongodb://%s:%s/%s', dbConfig.host, dbConfig.port, dbConfig.db);
+// MongoClient.connect(connectURI, function(err, db) {
+//   assert.equal(null, err); //verify we didn't get an error or fail
+//   console.log("Connected correctly to server %s", connectURI);
+//   mongodb = db;
+// });
 
 //global route handler, adds mongodb object
 app.use(function(req, res, next){
-  req.db = mongodb;
+  //req.db = mongodb;
   next();
 });
 
 //setup route handlers
 //index route
-app.use('/', routes);
+app.use('/', indexRoutes);
 //route for all data
-app.use('/data', dataRoutes);
+app.use('/data', sensorDataRoutes);
 
 // third route (basically if it doesn't match any of the above routes)
 // catch 404 and forward to error handler
@@ -84,4 +84,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+module.exports.app = app;

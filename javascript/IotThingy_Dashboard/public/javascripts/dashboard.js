@@ -26,7 +26,8 @@ $.getJSON("data/sensor/1", function (data) {
         'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
     },
     xAxis: {
-      type: 'datetime'
+      type: 'datetime',
+      range: 1000 * 60 * 60 * 6 // see the jlast 6 hours
     },
     yAxis: {
       title: {
