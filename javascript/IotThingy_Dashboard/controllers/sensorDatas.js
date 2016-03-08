@@ -9,3 +9,12 @@ MongoClient.connect(connectURI, function(err, db) {
   console.log("Connected correctly to server %s", connectURI);
   mongodb = db;
 });
+
+exports.getAll = function(){
+  var collection = mongodb.collection(dbConfig.collection);
+  
+  return collection.find().toArray(function(err, array) {
+    assert.equal(null, err); //verify there is no error
+    return array;
+  });
+};
