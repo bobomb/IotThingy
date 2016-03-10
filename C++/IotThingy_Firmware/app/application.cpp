@@ -4,7 +4,7 @@
 #include <Libraries/OneWire/OneWire.h>
 #include <Libraries/DS18S20/ds18s20.h>
 
-#define USE_SERIAL 0 //set to 1 to enable the serial console
+#define USE_SERIAL 1 //set to 1 to enable the serial console
 #define SENSOR_ID  "2"
 //Constants
 #define TEMP_PIN 4
@@ -14,9 +14,9 @@ void onMessageReceived(String topic, String message); // Forward declaration for
 void onNtpReceive(NtpClient& client, time_t timestamp);
 String getTemperature();
 Timer procTimer;
+//temp sensor
 DS18S20 temperatureSensor;
-// MQTT client
-// For quickly check you can use: http://www.hivemq.com/demos/websocket-client/ (Connection= test.mosquitto.org:8080)
+// MQTT client connection
 MqttClient mqtt(MQTT_SERVER_ADDRESS, MQTT_SERVER_PORT);
 //used to track how many times we failed to connect
 int connectionFailureCount = 0;
