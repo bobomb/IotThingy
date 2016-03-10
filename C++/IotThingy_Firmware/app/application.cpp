@@ -1,5 +1,5 @@
 #include <user_config.h>
-#include <wifi_config.h>
+#include <network_config.h>
 #include <SmingCore/SmingCore.h>
 #include <Libraries/OneWire/OneWire.h>
 #include <Libraries/DS18S20/ds18s20.h>
@@ -17,7 +17,7 @@ Timer procTimer;
 DS18S20 temperatureSensor;
 // MQTT client
 // For quickly check you can use: http://www.hivemq.com/demos/websocket-client/ (Connection= test.mosquitto.org:8080)
-MqttClient mqtt("10.0.0.12", 1883);
+MqttClient mqtt(MQTT_SERVER_ADDRESS, MQTT_SERVER_PORT);
 //used to track how many times we failed to connect
 int connectionFailureCount = 0;
 
